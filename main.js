@@ -32,11 +32,11 @@ function init() {
 async function getItems(category) {
     const responseData = await badApi.getItemList(category);
     document.getElementById('itemList').innerHTML = '';
-    for (i = 0; i < document.getElementById('itemsPerPage').value && i < responseData.length; i++) {
+    for (i = 0; i < responseData.length; i++) {
         var item = document.createElement("div");
         item.classList.add("item");
         item.dataset.itemData = JSON.stringify(responseData[i]);
-        item.innerHTML = "<p>" + responseData[i].name + "<br>" + responseData[i].manufacturer + "</p>";
+        item.innerHTML = `${responseData[i].name} ${'<br>'} ${responseData[i].manufacturer}`;
         item.onclick = function (event) {
             showItem(event.currentTarget);
         };
