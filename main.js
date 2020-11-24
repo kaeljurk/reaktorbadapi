@@ -1,14 +1,12 @@
 var categories = ['jackets', 'shirts', 'accessories'];
 var XMLParser = new DOMParser();
-var badApi;
+var badApi = new BadApi();
 
 
 init();
 
 
 function init() {
-
-    badApi = new BadApi();
 
     for (var i = 0; i < categories.length; i++) {
         var option = document.createElement("option");
