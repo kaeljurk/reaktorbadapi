@@ -1,0 +1,39 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+
+</head>
+
+<body>
+  <select id="categorySelector">
+    <option value="" selected disabled hidden>Category</option>
+  </select>
+  <div id="itemList"></div>
+  <div id="pageList>">
+    <select id="itemsPerPage">
+      <option value="20">20</option>
+      <option value="40">40</option>
+      <option value="60">60</option>
+      <option value="100000">10000</option>
+    </select>
+  </div>
+  <!-- The Modal -->
+  <div id="modalItem" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span id="modalX" class="close">&times;</span>
+      <div id="itemData"></div>
+      Availability:<div id="itemAvailabilityInfo"></div>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
