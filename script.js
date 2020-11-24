@@ -1,5 +1,6 @@
 var categories = ['jackets', 'shirts', 'accessories'];
 var XMLParser = new DOMParser();
+import BadApi from 'api.js';
 var badApi;
 
 class BadApi {
@@ -63,8 +64,6 @@ class BadApi {
     }
 
 }
-
-
 
 init();
 
@@ -134,113 +133,3 @@ async function showItem(item) {
         modal.querySelector("#itemAvailabilityInfo").textContent = error;
     });
 }
-/*
-
-async function getCategory(category) {
-    document.getElementById('itemList').innerHTML = '';
-    const responseData = await fetchItemCategory(category);
-    for (i = 0; i < document.getElementById('itemsPerPage').value && i < responseData.length; i++) {
-        var item = document.createElement("div")
-        item.classList.add("item");
-        item.dataset.id = responseData[i].id;
-        item.dataset.manufacturer = responseData[i].manufacturer;
-        item.dataset.name = responseData[i].name;
-        item.innerHTML = "<p>" + responseData[i].name + "<br>" + responseData[i].manufacturer + "</p>";
-        item.onclick = function (event) {
-            checkAvailability(event.currentTarget);
-            //console.log(event.currentTarget.dataset.name);
-        };
-        document.getElementById('itemList').appendChild(item);
-        //checkAvailability(item);
-    }
-
-}
-
-function cacheExpired(cacheItem) {
-    if (cacheItem.cacheTimestamp + cacheTime < Date.now()) {
-        return true;
-    }
-    return false;
-}
-
-async function fetchItemCategory(category) {
-    if (cache[category] && !cacheExpired(cache[category])) {
-        console.log(cache[category]);
-        return cache[category];
-    }
-    const response = await fetch('https://bad-api-assignment.reaktor.com/products/' + category);
-    console.log(response.status);
-    cache[category] = await response.json();
-    cache[category].cacheTimestamp = Date.now();
-    console.log(cache[category]);
-    return cache[category];
-}
-
-async function fetchAvailabilityInfo(manufacturer) {
-    if (cache[manufacturer] && !cacheExpired(cache[manufacturer])) {
-        console.log("Cache expired" + cacheExpired(cache[manufacturer].cacheTimestamp));
-        return cache[manufacturer];
-    }
-    const response = await fetch('https://bad-api-assignment.reaktor.com/availability/' + manufacturer);
-    console.log(response.status);
-    cache[manufacturer] = await response.json();
-    cache[manufacturer].cacheTimestamp = Date.now();
-    console.log(cache[manufacturer]);
-    return cache[manufacturer];
-}
-
-async function checkAvailability(item) {
-    console.log(item.dataset);
-    const responseData = await fetchAvailabilityInfo(item.dataset.manufacturer);
-    var itemAvailabilityXML = responseData.response.find(el => el.id = item.dataset.id.toUpperCase());
-    var itemAvailability = XMLParser.parseFromString(itemAvailabilityXML.DATAPAYLOAD, "text/xml").getElementsByTagName("INSTOCKVALUE")[0].childNodes[0].nodeValue;
-    item.dataset.availability = itemAvailability;
-    console.log(itemAvailability);
-}
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-/*
-function loadData(category) {
-    fetch('https://bad-api-assignment.reaktor.com/products/' + category)
-        //Response resolves to a readable stream,
-        //so this statement helps us convert it into
-        //a static object
-        .then(response => response.json())
-        //Now that we have the data, let us see what it looks like in console
-        .then(responseData => {
-            //console.log(responseData[0]);
-            responseData.forEach(element => {
-                console.log(element);
-            });
-
-            for (i = 0; i < document.getElementById('itemsPerPage').value; i++) {
-                var item = document.createElement("div")
-                item.classList.add("item");
-                item.dataset.id = responseData[i].id;
-                item.dataset.manufacturer = responseData[i].manufacturer;
-                item.dataset.name = responseData[i].name;
-                item.innerHTML = "<p>" + responseData[i].name + "<br>" + responseData[i].manufacturer + "</p>";
-                item.onclick = function (event) {
-                    checkAvailability(event.currentTarget);
-                    //console.log(event.currentTarget.dataset.name);
-                };
-                document.getElementById('itemList').appendChild(item);
-            }
-
-        });
-};
-
-*/
