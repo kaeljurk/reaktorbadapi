@@ -1,8 +1,8 @@
 var categories = ['jackets', 'shirts', 'accessories'];
 var XMLParser = new DOMParser();
-import BadApi from 'api.js';
 var badApi;
 
+/*
 class BadApi {
     constructor() {
         this.endpoint = 'https://bad-api-assignment.reaktor.com';
@@ -64,6 +64,8 @@ class BadApi {
     }
 
 }
+
+*/
 
 init();
 

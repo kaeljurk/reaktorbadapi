@@ -1,4 +1,4 @@
-export default class BadApi {
+class BadApi {
     constructor() {
         this.endpoint = 'https://bad-api-assignment.reaktor.com';
         this.cacheTime = 300000;
