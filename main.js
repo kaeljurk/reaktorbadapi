@@ -66,9 +66,8 @@ async function showItem(item) {
             const itemAvailability = XMLParser.parseFromString(itemAvailabilityXML.DATAPAYLOAD, "text/xml").getElementsByTagName("INSTOCKVALUE")[0].childNodes[0].nodeValue;
             modal.querySelector("#itemAvailabilityInfo").textContent = itemAvailability;
         } catch (error) {
-            modal.querySelector("#itemAvailabilityInfo").textContent = 'Error, refresh the page and try again.';
+            modal.querySelector("#itemAvailabilityInfo").textContent = 'No data';
         }
-
     }).catch(function (error) {
         modal.querySelector("#itemAvailabilityInfo").textContent = error;
     });

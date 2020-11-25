@@ -15,10 +15,17 @@ class BadApi {
     async getAvailability(manufacturer) {
         const url = this.endpoint + '/availability/' + manufacturer;
         let availabilityInfo = await this.getRequestData(url);
-        if (availabilityInfo.response.length < 1) { //retry if response is empty
+
+        let retryCount = 0;
+        while (typeof (availabilityInfo.response) == 'string' && retryCount < 2) {
             this.deleteCacheItem(url);
+            this.sleep(500);
             availabilityInfo = await this.getRequestData(url);
+            retryCount++;
         }
+
+        if (typeof (availabilityInfo.response) == 'string') throw 'API error - refresh the page and try again.'
+
         return availabilityInfo.response;
     }
 
