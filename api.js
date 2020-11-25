@@ -1,3 +1,5 @@
+var gResponse;
+var gResponseData;
 class BadApi {
     constructor() {
         this.endpoint = 'https://bad-api-assignment.reaktor.com';
@@ -11,8 +13,17 @@ class BadApi {
     }
 
     async getAvailability(manufacturer) {
-        const availabilityInfo = await this.getRequestData(this.endpoint + '/availability/' + manufacturer);
-        return availabilityInfo;
+        const url = this.endpoint + '/availability/' + manufacturer;
+        let availabilityInfo = await this.getRequestData(url);
+        if (availabilityInfo.response.length < 1) { //retry if response is empty
+            this.deleteCacheItem(url);
+            availabilityInfo = await this.getRequestData(url);
+        }
+        return availabilityInfo.response;
+    }
+
+    deleteCacheItem(key) {
+        delete this.cache[key];
     }
 
     async getRequestData(url) {

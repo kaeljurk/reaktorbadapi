@@ -30,19 +30,23 @@ function init() {
 }
 
 async function getItems(category) {
-    const responseData = await badApi.getItemList(category);
+    const responseData = badApi.getItemList(category);
     document.getElementById('itemList').innerHTML = '';
-    for (i = 0; i < responseData.length; i++) {
-        var item = document.createElement("div");
-        item.classList.add("item");
-        item.dataset.itemData = JSON.stringify(responseData[i]);
-        item.innerHTML = `${responseData[i].name} ${'<br>'} ${responseData[i].manufacturer}`;
-        item.onclick = function (event) {
-            showItem(event.currentTarget);
-        };
-        document.getElementById('itemList').appendChild(item);
+    responseData.then(function (responseData) {
+        for (i = 0; i < responseData.length; i++) {
+            var item = document.createElement("div");
+            item.classList.add("item");
+            item.dataset.itemData = JSON.stringify(responseData[i]);
+            item.innerHTML = `${responseData[i].name} ${'<br>'} ${responseData[i].manufacturer}`;
+            item.onclick = function (event) {
+                showItem(event.currentTarget);
+            };
+            document.getElementById('itemList').appendChild(item);
 
-    }
+        }
+    }).catch(function (error) {
+        alert(error);
+    });
 }
 
 async function showItem(item) {
@@ -58,7 +62,7 @@ async function showItem(item) {
     modal.querySelector("#itemAvailabilityInfo").textContent = "LOADING...";
     response.then(function (responseData) {
         try {
-            const itemAvailabilityXML = responseData.response.find(el => el.id = itemData.id.toUpperCase());
+            const itemAvailabilityXML = responseData.find(el => el.id = itemData.id.toUpperCase());
             const itemAvailability = XMLParser.parseFromString(itemAvailabilityXML.DATAPAYLOAD, "text/xml").getElementsByTagName("INSTOCKVALUE")[0].childNodes[0].nodeValue;
             modal.querySelector("#itemAvailabilityInfo").textContent = itemAvailability;
         } catch (error) {
