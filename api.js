@@ -1,5 +1,3 @@
-var gResponse;
-var gResponseData;
 class BadApi {
     constructor() {
         this.endpoint = 'https://bad-api-assignment.reaktor.com';
